@@ -1,0 +1,4 @@
+name = "my-spend-pattern-workers"
+main = "src/index.js"
+compatibility_date = "2022-09-18"
+account_id = "753e7fe3f170fa1b198c125c21208aef"
