@@ -13,6 +13,7 @@ export default {
   //   DB_ID = 'db08aac8ce36454bbbf0c6fcc7e6ebca'
   async fetch(request) {
     const params = new URL(request.url).searchParams;
+    console.log("### test");
     const data = await (
       await fetch(
         "https://api.notion.com/v1/databases/db08aac8ce36454bbbf0c6fcc7e6ebca/query",
