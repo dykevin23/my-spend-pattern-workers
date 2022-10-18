@@ -12,6 +12,7 @@ export default {
 
   //   DB_ID = 'db08aac8ce36454bbbf0c6fcc7e6ebca'
   async fetch(request) {
+    console.log("test");
     const params = new URL(request.url).searchParams;
     const data = await (
       await fetch(
