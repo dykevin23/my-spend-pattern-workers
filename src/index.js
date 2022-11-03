@@ -8,18 +8,18 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 export default {
-  // API_KEY = '988nruG9nyy-fxOtluOhwi7U69N6Rm_n9qJtJPDA'
-
-  //   DB_ID = 'db08aac8ce36454bbbf0c6fcc7e6ebca'
-
   async fetch(request) {
     const params = new URL(request.url).searchParams;
-    console.log("### test => ", JSON.parse(params.get("data")));
+    console.log(
+      "### test => ",
+      request.headers,
+      JSON.parse(params.get("data"))
+    );
 
     const config = {
       headers: {
-        Authorization: `Bearer secret_U9If4fvtnaj7Piw72CZIIdCNaMcTO9C8G5j04NFyEz5`,
-        "Notion-Version": "2022-06-28",
+        Authorization: request.headers.get("authorization"),
+        "Notion-Version": request.headers.get("notion-version"),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -39,7 +39,9 @@ export default {
     };
     const data = await (
       await fetch(
-        "https://api.notion.com/v1/databases/db08aac8ce36454bbbf0c6fcc7e6ebca/query",
+        `https://api.notion.com/v1/databases/${request.headers.get(
+          "database-id"
+        )}/query`,
         config
       )
     ).json();
