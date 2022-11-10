@@ -10,12 +10,9 @@
 export default {
   async fetch(request) {
     const params = new URL(request.url).searchParams;
-    console.log(
-      "### test => ",
-      request.headers,
-      JSON.parse(params.get("data"))
-    );
+    const { filterObj = {} } = JSON.parse(params.get("data"));
 
+    console.log(filterObj);
     const config = {
       headers: {
         Authorization: request.headers.get("authorization"),
@@ -24,16 +21,7 @@ export default {
       },
       body: JSON.stringify({
         page_size: 100,
-        filter: {
-          and: [
-            {
-              property: "date",
-              date: {
-                after: "2022-10-20",
-              },
-            },
-          ],
-        },
+        filter: filterObj,
       }),
       method: "POST",
     };
