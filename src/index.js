@@ -10,9 +10,12 @@
 export default {
   async fetch(request) {
     const params = new URL(request.url).searchParams;
-    const { filterObj = {} } = JSON.parse(params.get("data"));
+    console.log("### params => ", params);
+    const { filterObj = {}, nextCursor = undefined } = JSON.parse(
+      params.get("data")
+    );
 
-    console.log(filterObj);
+    console.log("### nextCursor => ", nextCursor);
     const config = {
       headers: {
         Authorization: request.headers.get("authorization"),
@@ -22,6 +25,7 @@ export default {
       body: JSON.stringify({
         page_size: 100,
         filter: filterObj,
+        start_cursor: nextCursor,
       }),
       method: "POST",
     };
